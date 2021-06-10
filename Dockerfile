@@ -6,6 +6,8 @@ ARG FULL_NODE_CONF_URL="https://raw.githubusercontent.com/tronprotocol/tron-depl
 ADD ${FULL_NODE_URL} /opt/FullNode.jar
 ADD ${FULL_NODE_CONF_URL} /usr/local/etc/main_net_config.conf
 
+RUN apt-get update && apt-get install -y wget
+
 CMD ["java", "-Xmx32g", "-XX:+UseConcMarkSweepGC", "-jar", "/opt/FullNode.jar", "-c", "/usr/local/etc/main_net_config.conf"]
 
 EXPOSE 18888
