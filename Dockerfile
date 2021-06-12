@@ -5,10 +5,11 @@ ARG FULL_NODE_CONF_URL="https://raw.githubusercontent.com/tronprotocol/tron-depl
 
 ADD ${FULL_NODE_URL} /opt/FullNode.jar
 ADD ${FULL_NODE_CONF_URL} /usr/local/etc/main_net_config.conf
+ADD logback.xml /usr/local/etc/logback.xml
 
 RUN apt-get update && apt-get install -y wget
 
-CMD ["java", "-Xmx32g", "-XX:+UseConcMarkSweepGC", "-jar", "/opt/FullNode.jar", "-c", "/usr/local/etc/main_net_config.conf"]
+CMD ["java", "-Xmx32g", "-XX:+UseConcMarkSweepGC", "-jar", "/opt/FullNode.jar", "-c", "/usr/local/etc/main_net_config.conf", "--log-config", "/usr/local/etc/logback.xml", "--output-directory", "/root/output-directory"]
 
 EXPOSE 18888
 EXPOSE 8090
